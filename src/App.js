@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import User from './User';
+import SelectedUsers from './SelectedUsers'; // Import the SelectedUsers component
+
 
 function App() {
   const [users, setUsers] = useState([]);
+  const [showSelectedUsers, setShowSelectedUsers] = useState(false); // State for displaying selected users
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
 
@@ -38,17 +41,23 @@ function App() {
   return (
     <div className="App">
       <h1>User List</h1>
-      <ul>
-        {currentUsers.map((user, index) => (
-          <User
-            key={index}
-            user={user}
-            index={index}
-            handleSelectUser={handleSelectUser}
-          />
-        ))}
-      </ul>
-
+      <button onClick={() => setShowSelectedUsers(!showSelectedUsers)}>
+        Show Selected Users
+      </button>
+      {showSelectedUsers ? (
+        <SelectedUsers users={users.filter((user) => user.selected)} />
+      ) : (
+        <ul>
+          {currentUsers.map((user, index) => (
+            <User
+              key={index}
+              user={user}
+              index={index}
+              handleSelectUser={handleSelectUser}
+            />
+          ))}
+        </ul>
+      )}
       {/* Pagination */}
       <div className="pagination">
         {Array.from({ length: Math.ceil(users.length / usersPerPage) }).map(
