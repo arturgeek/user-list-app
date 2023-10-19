@@ -1,6 +1,10 @@
-import React from 'react';
+import React from "react";
 
 function User({ user, index, handleSelectUser }) {
+  const userStyle = {
+    fontWeight: user.selected ? "bold" : "normal",
+  };
+
   return (
     <li key={index}>
       <label>
@@ -9,7 +13,10 @@ function User({ user, index, handleSelectUser }) {
           checked={user.selected}
           onChange={() => handleSelectUser(index)}
         />
-        {user.name.first} {user.name.last} - {user.gender}
+        <span style={userStyle}>
+          {user.name.first} {user.name.last}
+        </span>{' '}
+        - {user.gender}
       </label>
     </li>
   );
