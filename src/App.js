@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import User from './User';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -39,16 +40,12 @@ function App() {
       <h1>User List</h1>
       <ul>
         {currentUsers.map((user, index) => (
-          <li key={index}>
-            <label>
-              <input
-                type="checkbox"
-                checked={user.selected}
-                onChange={() => handleSelectUser(index)}
-              />
-              {user.name.first} {user.name.last} - {user.gender}
-            </label>
-          </li>
+          <User
+            key={index}
+            user={user}
+            index={index}
+            handleSelectUser={handleSelectUser}
+          />
         ))}
       </ul>
 
