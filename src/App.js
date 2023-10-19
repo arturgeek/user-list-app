@@ -3,7 +3,6 @@ import axios from 'axios';
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [selectedUsers, setSelectedUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
 
@@ -23,8 +22,10 @@ function App() {
   }, []);
 
   const handleSelectUser = (index) => {
+    const pageOffset = usersPerPage * (currentPage-1);
     const updatedUsers = [...users];
-    updatedUsers[index].selected = !updatedUsers[index].selected;
+    const currentPageIndexUser = pageOffset + index;
+    updatedUsers[currentPageIndexUser].selected = !updatedUsers[currentPageIndexUser].selected;
     setUsers(updatedUsers);
   };
 
